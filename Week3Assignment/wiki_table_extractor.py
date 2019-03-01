@@ -39,7 +39,9 @@ class WikiTableExtractor:
         title_elements = table_content.find_all('th')
 
         if title_elements:
-            titles = [title_element.get_text() for title_element in title_elements]
+            titles_dumped = [title_element.get_text() for title_element in title_elements]
+            titles = [title_dumped.rstrip('\n\r').strip()
+                      for title_dumped in titles_dumped]
         else:
             titles = []
 
@@ -55,7 +57,7 @@ class WikiTableExtractor:
         for row_element in row_elements:
             # 'td' is html tag that defines a column with the Table Data
             cells = row_element.find_all('td')
-            row = [cell.get_text() for cell in cells]
+            row = [cell.get_text().rstrip('\n\r').strip() for cell in cells]
             rows.append(row)
         return rows
 
