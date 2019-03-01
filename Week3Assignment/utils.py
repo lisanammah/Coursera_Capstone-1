@@ -7,6 +7,7 @@ def filter_not_assigned_postcodes(canada_post_codes):
     assigned_postcodes = canada_post_codes['Borough'] != 'Not assigned'
     return canada_post_codes[assigned_postcodes].reset_index(drop=True)
 
+
 def name_not_assigned_neighborhoods(canada_post_codes):
     """
     In the DataFrame there can be boroughs with not
@@ -18,3 +19,8 @@ def name_not_assigned_neighborhoods(canada_post_codes):
         canada_post_codes.loc[not_assigned_neighborhoods, 'Borough']
 
     return canada_post_codes
+
+
+def combine_rows_with_same_postcode(canada_post_codes):
+    grouped_post_codes = canada_post_codes.groupby(['Postcode', 'Borough'])
+    return grouped_post_codes['Neighbourhood'].apply(', '.join).reset_index()
