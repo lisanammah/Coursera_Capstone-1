@@ -1,3 +1,5 @@
+import csv
+
 import geocoder
 
 
@@ -46,15 +48,27 @@ def get_latitude_longitude(postcode):
         provider_response = geocoder.google('{}, Toronto, Ontario'.format(postcode))
         latitude_longitude = provider_response.latlng
         secure_counter -= 1
-    if latitude_longitude == None: latitude_longitude = (0, 0)
+    if latitude_longitude is None: latitude_longitude = (0, 0)
     return latitude_longitude
 
 
 def get_latitude_longitude_from_csv(postcode):
     """
-    The function uses geocoder library to obtain latitude and
-    longitude of the area from it's postal code.
+    The function uses the proposed csv file with the coordinates to
+    obtain latitude and longitude of the area from its postal code.
     :param postcode: string with postal code of the area
     :return: tuple with latitude and longitude
     """
-    pass
+    with open('Geospatial_Coordinates.csv') as csvfile:
+        reader = csv.DictReader(csvfile)
+
+        pc_col, lat_col, lon_col = reader.fieldnames
+
+        result = (0, 0)
+
+        for row in reader:
+            if row[pc_col] == postcode:
+                result = (row[lat_col], row[lon_col])
+                break
+
+        return result
