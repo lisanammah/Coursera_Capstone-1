@@ -72,3 +72,7 @@ def get_latitude_longitude_from_csv(postcode):
                 break
 
         return result
+
+
+def get_nearby_venues(neighborhood, lat, lon)
+    pass
