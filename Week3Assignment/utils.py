@@ -108,10 +108,10 @@ def get_nearby_venues(neighborhood, lat, lon, radius=500, limit=100):
     venues_list = []
     basic_url = ('https://api.foursquare.com/v2/venues/explore'
                  '?&client_id={client_id}&client_secret={client_secret}&v={version}'
-                 .format(**foursquare_api_data_dict) )
+                 .format(**foursquare_api_data_dict))
 
     parameters = ('&ll={lat},{lon}&radius={radius}&limit={limit}'
-                  .format(lat=lat, lon=lon, radius=radius, limit=limit) )
+                  .format(lat=lat, lon=lon, radius=radius, limit=limit))
 
     url = basic_url + parameters
 
@@ -129,3 +129,16 @@ def get_nearby_venues(neighborhood, lat, lon, radius=500, limit=100):
         })
 
     return venues_list
+
+
+def get_most_common_venues(venues_row, num_top_venues):
+    """
+    Returns dataframe with most common venues sorted in descending order
+
+    :param venues_row: pandas DataFrame with venues
+    :param num_top_venues: number of top venues in returned DataFrame
+    """
+    row_categories = venues_row.iloc[1:]
+    row_categories_sorted = row_categories.sort_values(ascending=False)
+
+    return row_categories_sorted.index.values[0: num_top_venues]
