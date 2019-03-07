@@ -47,15 +47,17 @@ def combine_rows_with_same_postcode(canada_post_codes):
     grouped_post_codes = canada_post_codes.groupby(['Postcode', 'Borough'])
     return grouped_post_codes['Neighbourhood'].apply(', '.join).reset_index()
 
+
 def get_latitude_longitude(postcode):
     """
     The function uses geocoder library to obtain latitude and
     longitude of the area from it's postal code.
+
     :param postcode: string with postal code of the area
     :return: tuple with latitude and longitude
     """
     latitude_longitude = None
-    secure_counter = 10 # To avoid infinite loop
+    secure_counter = 10  # To avoid infinite loop
     while latitude_longitude is None and secure_counter:
         provider_response = geocoder.google('{}, Toronto, Ontario'
                                             .format(postcode))
