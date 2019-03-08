@@ -1,5 +1,5 @@
 """
-Miscellaneous utilitiy functions
+Miscellaneous utility functions
 """
 
 import csv
@@ -51,7 +51,7 @@ def combine_rows_with_same_postcode(canada_post_codes):
 def get_latitude_longitude(postcode):
     """
     The function uses geocoder library to obtain latitude and
-    longitude of the area from it's postal code.
+    longitude of the area from its postal code.
 
     :param postcode: string with postal code of the area
     :return: tuple with latitude and longitude
@@ -133,7 +133,7 @@ def get_nearby_venues(neighborhood, lat, lon, radius=500, limit=100):
 
 def get_most_common_venues(venues_row, num_top_venues):
     """
-    Returns dataframe with most common venues sorted in descending order
+    Returns DataFrame with most common venues sorted in descending order
 
     :param venues_row: pandas DataFrame with venues
     :param num_top_venues: number of top venues in returned DataFrame
